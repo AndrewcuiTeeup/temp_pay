@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'dashboard' => '仪表盘',
+    'pu_application' => '普通用户申请',
+    'merchant_application' => '商户申请',
+    'user_management' => '用户管理',
+    'pu_management' => '普通用户管理',
+    'merchant_management' => '商户管理',
+    'recharge_application' => '充值申请',
+    'withdraw_application' => '出金取现',
+    'withdraw_batch' => '批量支付',
+    'system_setting' => '系统设置',
+    'bank_setting' => '银行账户设置',
+    'page_setting' => '页面设置',
+    'device_setting' => '设备管理',
+    'param_setting' => '系统参数设置',
+    'cms_users' => 'CMS账户管理',
+    'cms_roles' => 'CMS角色管理',
+    'system_log' => '系统日志',
+    'recharge_log' => '充值日志',
+    'withdraw_log' => '出金日志',
+    'batch_withdraw_log' => '批量出金日志',
+    'sms_log' => '短信日志',
+    'wallet_search' => '钱包查询',
+
+    'merchant_detail' => '商户详情',
+    'page_edit' => '页面编辑',
+    'stripe_log' => 'Stripe日志',
+    'coinbase_log' => 'Coinbase日志',
+    'system_notice'=>'系统通知',
+];

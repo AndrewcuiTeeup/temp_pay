@@ -1,0 +1,28 @@
+/*
+rewrite jquery datable css
+ */
+table.dataTable{
+	color: #797979;
+	font-size: 14px;
+}
+table.dataTable thead th, table.dataTable thead td {
+	padding: .75rem;
+	border-bottom: 0px;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+	padding: .75rem;
+}
+table.dataTable tfoot th, table.dataTable tfoot td {
+	padding: .75rem;
+}
+table.dataTable.no-footer {
+	border-bottom: 1px solid #f3f1f1;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	color: #fff !important;
+	border: 1px solid #009efb;
+	background: transparent;
+	border-radius: 4px;
+}
+/*
+.dt-buttons{visibility: hidden;height: 1px; width: 1px}*/

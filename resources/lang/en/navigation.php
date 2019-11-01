@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'dashboard' => 'Dashboard',
+    'pu_application' => 'PU Application',
+    'merchant_application' => 'Merchant Application',
+    'user_management' => 'Users Management',
+    'pu_management' => 'PU Management',
+    'merchant_management' => 'Merchants Management',
+    'recharge_application' => 'Recharge Application',
+    'withdraw_application' => 'Withdraw Application',
+    'withdraw_batch' => 'Batch Withdraw',
+    'system_setting' => 'System Setting',
+    'bank_setting' => 'Bank Info Setting',
+    'page_setting' => 'Page Setting',
+    'device_setting' => 'Device Setting',
+    'param_setting' => 'System Params',
+    'cms_users' => 'CMS Users',
+    'cms_roles' => 'CMS Role management',
+    'system_log' => 'System Logs',
+    'recharge_log' => 'Recharge log',
+    'withdraw_log' => 'Withdraw log',
+    'batch_withdraw_log' => 'Batch Withdraw Log',
+    'sms_log' => 'SMS log',
+    'wallet_search' => 'Wallet Query',
+
+    'merchant_detail' => 'Merchant Detail',
+    'page_edit' => 'Page Edit',
+    'stripe_log' => 'Stripe log',
+    'coinbase_log' => 'Coinbase log',
+    'system_notice'=>'System Notice',
+];

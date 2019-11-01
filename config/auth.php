@@ -45,6 +45,12 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        //======== Andrew ===
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        //-----------------
     ],
 
     /*
@@ -74,6 +80,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
     ],
 
     /*
