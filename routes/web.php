@@ -40,4 +40,6 @@ Route::prefix('admin')->group(function() {
     Route::any('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
     Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
+    Route::get('/order', 'Admin\OrderController@index')->name('admin.order.list');
+    Route::get('/order-detail', 'Admin\OrderController@detail')->name('admin.order.detail');
 });

@@ -106,97 +106,14 @@
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
-                {{--<ul id="sidebarnav">
+                <ul id="sidebarnav">
                     <li>
                         <a href="{{route('admin.dashboard')}}"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">{{__('navigation.dashboard')}}</span></a>
                     </li>
-                    @can('pu_application_all')
                     <li>
-                        <a href="{{route('admin.pu.application')}}" class="badge-link"><i class="mdi mdi-account-check-outline"></i><span class="hide-menu">{{__('navigation.pu_application')}}</span><span id="badgeUserApplicationNum" class="badge badge-warning badge-count"></span></a>
+                        <a href="{{route('admin.dashboard')}}"><i class="mdi mdi-cash"></i><span class="hide-menu">{{__('navigation.order')}}</span></a>
                     </li>
-                    @endcan
-                    @can('merchant_application_all')
-                    <li>
-                        <a href="{{route('admin.merchant.application')}}" class="badge-link"><i class="mdi mdi-account-multiple-check"></i><span class="hide-menu">{{__('navigation.merchant_application')}}</span><span id="badgeMerchantApplicationNum" class="badge badge-warning badge-count"></span></a>
-                    </li>
-                    @endcan
-                    @canany(['pu_user_view','merchant_user_view'])
-                    <li>
-                        <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-account-group-outline"></i><span class="hide-menu">{{__('navigation.user_management')}}</span></a>
-                        <ul aria-expanded="false" class="collapse">
-                            @can('pu_user_view')
-                                <li><a id="sidebar-pu-user" href="{{route('admin.customer.user-list')}}"><i class="mdi mdi-account">{{__('navigation.pu_management')}}</i></a></li>
-                            @endcan
-                            @can('merchant_user_view')
-                                <li><a id="sidebar-merchant-user" href="{{route('admin.customer.merchant-list')}}"><i class="mdi mdi-account-multiple">{{__('navigation.merchant_management')}}</i></a></li>
-                            @endcan
-                                <li><a id="sidebar-merchant-user" href="{{route('admin.customer.wallet-list')}}"><i class="mdi mdi-account-multiple">{{__('navigation.wallet_search')}}</i></a></li>
-                        </ul>
-                    </li>
-                    @endcanany
-                    @can('recharge_all')
-                        <li>
-                            <a href="{{route('admin.recharge.application')}}" class="badge-link"><i class="mdi mdi-cart-outline"></i><span class="hide-menu">{{__('navigation.recharge_application')}}</span><span id="badgeAuditNum" class="badge badge-warning badge-count"></span></a>
-                        </li>
-                    @endcan
-                    @can('withdraw_all')
-                        <li>
-                            <a href="{{route('admin.withdraw.list')}}" class="badge-link" ><i class="mdi mdi-cash-refund"></i><span class="hide-menu">{{__('navigation.withdraw_application')}}</span><span id="badgeWithdrawNum" class="badge badge-warning badge-count"></span></a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.batch_withdraw.index')}}" class="badge-link" ><i class="mdi mdi-cash-multiple"></i><span class="hide-menu">{{__('navigation.withdraw_batch')}}</span></a>
-                        </li>
-                    @endcan
-                    @canany(['setting_bank_all','setting_page_all','setting_device_all','setting_option_all','setting_user_all'])
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">{{__('navigation.system_setting')}}</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                @can('setting_bank_all')
-                                <li><a href="{{route('admin.setting.bank-list')}}"><i class="mdi mdi-credit-card"></i><span class="hide-menu">{{__('navigation.bank_setting')}}</span></a></li>
-                                @endcan
-                                @can('setting_page_all')
-                               --}}{{-- <li><a href="{{route('admin.page.list')}}"><i class="mdi mdi-book-open-outline"></i><span class="hide-menu">{{__('navigation.page_setting')}}</span></a></li>--}}{{--
-                                <li><a href="{{route('admin.system_notice.list')}}"><i class="mdi mdi-book-open-outline"></i><span class="hide-menu">{{__('navigation.system_notice')}}</span></a></li>
-                                @endcan
-                                @can('setting_device_all')
-                                <li><a href="{{route('admin.setting.device-list')}}"><i class="mdi mdi-book-open-outline"></i><span class="hide-menu">{{__('navigation.device_setting')}}</span></a></li>
-                                @endcan
-                                @can('setting_device_all')
-                                    <li><a href="{{route('admin.setting.option')}}"><i class="mdi mdi-alpha-p-box"></i><span class="hide-menu">{{__('navigation.param_setting')}}</span></a></li>
-                                @endcan
-                                 @can('setting_user_all')
-                                    <li><a href="{{route('admin.setting.admin.list')}}"><i class="mdi mdi-account-details"></i><span class="hide-menu">{{__('navigation.cms_users')}}</span></a></li>
-                                    @endcan
-                                 @role('admin')
-                                <li>
-                                    <a href="{{route('admin.setting.admin.roles')}}"><i class="mdi mdi-folder-account"></i><span class="hide-menu">{{__('navigation.cms_roles')}}</span></a>
-                                </li>
-                                @endrole
-                            </ul>
-                        </li>
-                    @endcanany
-                    @canany(['log_recharge_all','log_withdraw_all','log_device_all'])
-                    <li>
-                        <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-calendar-clock"></i><span class="hide-menu">{{__('navigation.system_log')}}</span></a>
-                        <ul aria-expanded="false" class="collapse">
-                            @can('log_recharge_all')
-                            <li><a href="{{route('admin.log.recharge')}}"><i class="mdi mdi-cart-plus"></i><span class="hide-menu">{{__('navigation.recharge_log')}}</span></a></li>
-                            @endcan
-                                @can('log_withdraw_all')
-                                <li><a href="{{route('admin.log.withdraw')}}"><i class="mdi mdi-cash"></i><span class="hide-menu">{{__('navigation.withdraw_log')}}</span></a></li>
-                                <li><a href="{{route('admin.log.batch_withdraw')}}"><i class="mdi mdi-cash-multiple"></i><span class="hide-menu">{{__('navigation.batch_withdraw_log')}}</span></a></li>
-                                @endcan
-                                @can('log_device_all')
-                                <li><a href="{{route('admin.log.device')}}"><i class="mdi mdi-cellphone-message"></i><span class="hide-menu">{{__('navigation.sms_log')}}</span></a></li>
-                                @endcan
-                                @role('admin')
-                                    <li><a href="{{route('admin.log.stripe')}}"><i class="mdi mdi-calendar-clock"></i><span class="hide-menu">{{__('navigation.stripe_log')}}</span></a></li>
-                                    <li><a href="{{route('admin.log.coinbase')}}"><i class="mdi mdi-calendar-clock"></i><span class="hide-menu">{{__('navigation.coinbase_log')}}</span></a></li>
-                                @endrole
-                        </ul>
-                    </li>
-                    @endcanany
-                </ul>--}}
+                </ul>
             </nav>
             <!-- End Sidebar navigation -->
         </div>
@@ -213,7 +130,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            <div class="float-right">© OASIS Pay</div>
+            <div class="float-right">© </div>
             <div class="clearfix"></div>
         </footer>
         <!-- End footer -->

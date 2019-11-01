@@ -69,6 +69,7 @@ class OrderService
         $data['status']=1;
         $data['check_code']='success-'.$rs->id;
         $data['sms_bank_message_id']=$messageId;
+        $data['updated_at']=date('Y-m-d h:i:s',time());
         Order::where('id',$id)->update($data);
         // update
 
@@ -76,4 +77,26 @@ class OrderService
     }
 
 
+    static public function listTodaySuccessOrder($date)
+    {
+        return Order::where('status',1)->whereDate('updated_at',$date)->get();
+
+    }
+
+    static public function successBalanceUSD($date=null)
+    {
+        if(!empty($date)){
+            return Order::where('status',1)->whereDate('updated_at',$date)->sum('amount_usd');
+        }
+        return Order::where('status',1)->sum('amount_usd');
+
+    }
+
+    static public function successBalanceCNY($date=null)
+    {
+        if(!empty($date)){
+            return Order::where('status',1)->where('payment_currency','CNY')->whereDate('updated_at',$date)->sum('final_amount');
+        }
+        return Order::where('status',1)->where('payment_currency','CNY')->sum('final_amount');
+    }
 }
