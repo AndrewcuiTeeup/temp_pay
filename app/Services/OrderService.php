@@ -6,47 +6,13 @@
 namespace App\Services;
 
 
-use App\Models\Device;
+
 use App\Models\Order;
 use App\Models\SMSMessage;
 
 class OrderService
 {
 
-    /**
-     * @param $id
-     * @param array $is_publish
-     * @return mixed
-     */
-    static public function getById($id)
-    {
-        return SMSMessage::where('id','=',$id)->first();
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    static public function add($data)
-    {
-        return SMSMessage::create($data)->id;
-    }
-
-    /**
-     * @param $id
-     * @param $data
-     * @return mixed
-     */
-    static public function updateById($id,$data)
-    {
-        return SMSMessage::where('id',$id)->update($data);
-    }
-
-
-    static public function listAll()
-    {
-        return SMSMessage::get();
-    }
 
     static public function smsConfirmRecharge($amount,$messageId)
     {
@@ -71,7 +37,8 @@ class OrderService
         $data['sms_bank_message_id']=$messageId;
         $data['updated_at']=date('Y-m-d h:i:s',time());
         Order::where('id',$id)->update($data);
-        // update
+        // update sms
+        SMSMessage::where('id',$messageId)->update(['order_id'=>$id,'status'=>1]);
 
         return true;
     }
@@ -98,5 +65,10 @@ class OrderService
             return Order::where('status',1)->where('payment_currency','CNY')->whereDate('updated_at',$date)->sum('final_amount');
         }
         return Order::where('status',1)->where('payment_currency','CNY')->sum('final_amount');
+    }
+
+    static public function getOrderById($id)
+    {
+        return Order::where('id',$id)->first();
     }
 }

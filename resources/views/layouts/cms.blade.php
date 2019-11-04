@@ -111,7 +111,14 @@
                         <a href="{{route('admin.dashboard')}}"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">{{__('navigation.dashboard')}}</span></a>
                     </li>
                     <li>
-                        <a href="{{route('admin.dashboard')}}"><i class="mdi mdi-cash"></i><span class="hide-menu">{{__('navigation.order')}}</span></a>
+                        <a href="{{route('admin.order.list')}}"><i class="mdi mdi-cash"></i><span class="hide-menu">{{__('navigation.order')}}</span></a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">{{__('navigation.system_setting')}}</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{route('admin.setting.bank-list')}}"><i class="mdi mdi-credit-card"></i><span class="hide-menu">{{__('navigation.bank_setting')}}</span></a></li>
+                            <li><a href="{{route('admin.setting.sms-log')}}"><i class="mdi mdi-cellphone-message"></i><span class="hide-menu">{{__('navigation.sms_log')}}</span></a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

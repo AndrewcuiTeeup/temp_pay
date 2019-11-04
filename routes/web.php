@@ -40,6 +40,18 @@ Route::prefix('admin')->group(function() {
     Route::any('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
     Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
-    Route::get('/order', 'Admin\OrderController@index')->name('admin.order.list');
-    Route::get('/order-detail', 'Admin\OrderController@detail')->name('admin.order.detail');
+    Route::get('/order-list', 'Admin\OrderController@index')->name('admin.order.list');
+    Route::post('/order/ajax', 'Admin\OrderController@ajax_log_table')->name('admin.order.ajax');
+    Route::get('/order-detail/{id}', 'Admin\OrderController@detail')->name('admin.order.detail');
+
+    Route::get('/setting/bank', 'Admin\SettingController@bankList')->name('admin.setting.bank-list');
+    Route::get('/setting/bank/edit/{id}', 'Admin\SettingController@bankEditForm')->name('admin.setting.bank.editForm');
+    Route::post('/setting/bank/edit', 'Admin\SettingController@bankEdit')->name('admin.setting.bank.edit');
+    Route::post('/setting/bank/status', 'Admin\SettingController@bankStatus')->name('admin.setting.bank-status');
+    Route::post('/setting/bank/add', 'Admin\SettingController@bankAdd')->name('admin.setting.bank.add');
+
+    Route::get('/setting/sms-log', 'Admin\SettingController@smslog')->name('admin.setting.sms-log');
+    Route::post('/setting/sms-log/ajax', 'Admin\SettingController@sms_ajax_table')->name('admin.setting.sms-log-ajax');
+
+
 });

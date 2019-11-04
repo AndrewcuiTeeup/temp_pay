@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\BankSMSService;
 use App\Services\CommonService;
 use App\Services\OrderService;
+use App\Services\SettingService;
 use Illuminate\Http\Request;
 use App\Services\DeviceService;
 use Validator;
@@ -73,23 +74,26 @@ class SMSApiController extends Controller
         if(count($sendData)>0){
             try {
                 foreach ($sendData as $key => $val) {
-
                     if (!empty($val['msg'])) {
                         $strMsg = $val['msg'];
                         $rsMsg = self::checkMessage($strMsg);
                         if ($rsMsg === false) {
-                           // return response()->json(['error' => 'invalid message :  ' . $strMsg, 'status' => 'error'], 400);
+                            // 不符合条件的短信
+                          /*  $data['phone'] = isset($val['phone']) ? $val['phone'] : '';
+                            $data['message'] = $strMsg;
+                            $data['batch_id'] = $batch_id;
+                            $data['message_time'] = $message_time;
+                            $data['status'] = '-1';
+                            $id=BankSMSService::add($data); // save data*/
                             continue;
                         }
                         if ($rsMsg !== false) {
-
                             $data['phone'] = isset($val['phone']) ? $val['phone'] : '';
                             $data['message'] = $strMsg;
                             $data['bank'] = $rsMsg['bank'];
                             $data['batch_id'] = $batch_id;
                             $data['message_time'] = $message_time;
                             $data['amount'] = $rsMsg['amount'];
-                            $data['check_code'] = $rsMsg['check_code'];
                             $id=BankSMSService::add($data); // save data
                             if(!empty($id))
                             {
@@ -132,6 +136,50 @@ class SMSApiController extends Controller
     }
 
     private function checkMessage($str)
+    {
+        $activeBanks=SettingService::listActiveBanksAndTemplate();
+        if(!empty($activeBanks)){
+            foreach ($activeBanks as $row)
+            {
+                $bank_account=$row['bank_account'];
+                $check_bank_account=substr($bank_account,-4);
+                $bank_name=$row['bank_name'];
+                $check_word_start=$row['check_word_start'];
+                $check_word_end=$row['check_word_end'];
+
+                // validate bank account
+                $searchString=' '.$str;
+                if(strpos($searchString,$check_bank_account)===false){
+                    continue;
+                }
+                // check bank name
+                if(strpos($searchString,$bank_name)===false){
+                    continue;
+                }
+                // get amount
+                $posStart=strpos($searchString,$check_word_start);
+                $posEnd=strpos($searchString,$check_word_end);
+                $leng=(int)$posEnd-(int)$posStart-strlen($posStart);
+                if($leng<=0){
+                    continue;
+                }
+                $amount=substr($searchString,$posStart+strlen($posStart),$leng);
+
+                if(!is_numeric($amount)){
+                    continue;
+                }
+                if($amount>0){
+                    return ['amount'=>$amount,'bank'=>$bank_name];
+                    break;
+                }
+
+            }
+
+        }
+
+        return false;
+    }
+    private function checkMessage_old($str)
     {
         $rs=[];
         /**

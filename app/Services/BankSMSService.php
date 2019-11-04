@@ -6,7 +6,7 @@
 namespace App\Services;
 
 
-use App\Models\Device;
+use App\Models\SMSBankTemplate;
 use App\Models\SMSMessage;
 
 class BankSMSService
@@ -47,6 +47,10 @@ class BankSMSService
         return SMSMessage::get();
     }
 
+    static public function listAvailableBanksArray()
+    {
+        return SMSBankTemplate::pluck('bank_name')->toArray();
+    }
 
 
 }
