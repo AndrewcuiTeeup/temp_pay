@@ -26,6 +26,15 @@ Route::get('/home',  function () {
 // sms API
 Route::post('/device/status', 'SMSApiController@deviceStatus')->name('sms.device.status');
 Route::post('/device/message', 'SMSApiController@message')->name('sms.device.message');
+// payment
+Route::any('/payment/order', 'PaymentController@generate')->name('payment.generate');
+Route::post('/payment/order-status', 'PaymentController@orderStatus')->name('payment.status');
+Route::get('/payment/order_detail/{id}', 'PaymentController@show')->name('payment.order');
+Route::get('/payment/order_expired/{id}', 'PaymentController@orderExpired')->name('payment.order.expired');
+Route::get('/payment/order_success/{id}', 'PaymentController@orderSuccess')->name('payment.order.success');
+Route::post('/payment/notify', 'PaymentController@notify')->name('payment.notify');
+Route::get('/test', 'PaymentController@test')->name('payment.test');
+
 
 Route::prefix('admin')->group(function() {
     Route::get('/lang/{locale}', function ($locale) {
@@ -49,6 +58,8 @@ Route::prefix('admin')->group(function() {
     Route::post('/setting/bank/edit', 'Admin\SettingController@bankEdit')->name('admin.setting.bank.edit');
     Route::post('/setting/bank/status', 'Admin\SettingController@bankStatus')->name('admin.setting.bank-status');
     Route::post('/setting/bank/add', 'Admin\SettingController@bankAdd')->name('admin.setting.bank.add');
+    Route::get('/setting/shop/{id}', 'Admin\SettingController@shopEdit')->name('admin.setting.shop.edit');
+    Route::post('/setting/shop', 'Admin\SettingController@shopUpdate')->name('admin.setting.shop.update');
 
     Route::get('/setting/sms-log', 'Admin\SettingController@smslog')->name('admin.setting.sms-log');
     Route::post('/setting/sms-log/ajax', 'Admin\SettingController@sms_ajax_table')->name('admin.setting.sms-log-ajax');

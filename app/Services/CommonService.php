@@ -7,12 +7,11 @@
  */
 namespace App\Services;
 
-use App\Models\BankAccount;
+
 use App\Models\BankInfo;
-use App\Models\SettingBankAccount;
-use App\Models\SettingCurrency;
 use App\Models\SettingOption;
-use App\Models\User;
+use App\Models\Shop;
+
 
 class CommonService
 {
@@ -27,10 +26,32 @@ class CommonService
         return BankInfo::whereIn('status',$status)->get();
     }
 
+    static public function getShopByCode($code)
+    {
+        return Shop::where('site_code',$code)->first();
+    }
+
     static public function getSMSPassword()
     {
         $rs=SettingOption::where('name','device_password')->first();
         $value=(isset($rs->value))?$rs->value :'';
         return $value;
+    }
+
+    static public function getAvailableBank($status=[1])
+    {
+        $status=is_array($status) ? $status: [$status];
+
+        $rs=BankInfo::whereIn('status',$status)->get();
+        $num=count($rs);
+        if($num<0){
+            return false;
+        }
+
+        if($num==1){
+            return $rs[0];
+        }
+        $randNum=rand(0,$num-1);
+        return $rs[$randNum];
     }
 }

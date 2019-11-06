@@ -7,6 +7,7 @@ namespace App\Services;
 
 
 use App\Models\BankInfo;
+use App\Models\Shop;
 use App\Models\SMSBankTemplate;
 use DB;
 
@@ -37,14 +38,10 @@ class SettingService
     {
         return BankInfo::where('id',$id)->update($data);
     }
-    /**
-     * get record by id
-     * @param $id
-     * @return mixed
-     */
-    static public function getBank($id)
+
+    static public function getBank($id,$status=[0,1])
     {
-        return BankInfo::where('id',$id)->first();
+        return BankInfo::where('id',$id)->whereIn('status',$status)->first();
     }
 
     static public function listBanks($status=[0,1])
@@ -73,6 +70,15 @@ class SettingService
     static public function updateBankTemplate($id,$data)
     {
         return SMSBankTemplate::where('id',$id)->update($data);
+    }
+
+    static public function updateShop($id,$data)
+    {
+        return Shop::where('id',$id)->update($data);
+    }
+    static public function getShopById($id)
+    {
+        return Shop::where('id',$id)->first();
     }
 
 }

@@ -99,7 +99,7 @@ class SMSApiController extends Controller
                             {
                                 $messageId=$id;
                                 $amount=$data['amount'];
-                                OrderService::smsConfirmRecharge($amount,$messageId);
+                                $rs=OrderService::smsConfirmRecharge($amount,$messageId,$rsMsg['bank']);
                             }
                         }
 
@@ -157,13 +157,13 @@ class SMSApiController extends Controller
                     continue;
                 }
                 // get amount
-                $posStart=strpos($searchString,$check_word_start);
+                $posStart=strpos($searchString,$check_word_start)+strlen($check_word_start);
                 $posEnd=strpos($searchString,$check_word_end);
-                $leng=(int)$posEnd-(int)$posStart-strlen($posStart);
+                $leng=(int)$posEnd-(int)$posStart;
                 if($leng<=0){
                     continue;
                 }
-                $amount=substr($searchString,$posStart+strlen($posStart),$leng);
+                $amount=substr($searchString,$posStart,$leng);
 
                 if(!is_numeric($amount)){
                     continue;
@@ -179,139 +179,5 @@ class SMSApiController extends Controller
 
         return false;
     }
-    private function checkMessage_old($str)
-    {
-        $rs=[];
-        /**
-         * return [
-        'available_bank'=>[
-        'gong_shang'=> '工商银行',
-        'jian_se'=> '建设银行',
-        'guang_da'=>'光大银行',
-        'xing_ye'=>'兴业银行'
-        ],
-         */
-       $msgBank=config('sms_bank.available_bank');
-       foreach ($msgBank as $key=>$val){
-            if(strpos($str,$val)){
-                switch ($key)
-                {
-                    case 'gong_shang': //工商银行
-                        {
-                            if(strpos($str,$val)>0){
-                                $codeFind='工商银行收入(';
-                                if(strpos($str,$codeFind)>0){
-                                    $frontPos=strpos($str,'(')+1;
-                                    $endPos=strpos($str,')');
-                                    $code=substr($str,$frontPos,$endPos-$frontPos);
-                                    // amount
-                                    $frontPos=strpos($str,')')+1;
-                                    $endPos=strpos($str,'元');
-                                    $strAmount=substr($str,$frontPos,$endPos-$frontPos);
-                                    $strAmount=floatval($strAmount);
-                                    if(empty($strAmount))
-                                    {
-                                        return false;
-                                    }
-                                 return ['check_code'=>$code,'amount'=>$strAmount,'bank'=>$val];
 
-                                }else{
-                                    return false;
-                                }
-                            }
-                            break;
-                        }
-                        case 'jian_se': //建设银行
-                        {
-                            if(strpos($str,$val)>0){
-                                $codeFind='储蓄卡账户';
-                                if(strpos($str,$codeFind)>0){
-                                    $str=substr($str,strpos($str,$codeFind));
-                                    $frontPos=strlen($codeFind);
-                                    $endPos=strpos($str,'收入人民币');
-                                    $code=substr($str,$frontPos,$endPos-$frontPos);
-                                    // amount
-                                    $codeFind='收入人民币';
-                                    $str=substr($str,strpos($str,$codeFind));
-                                    $frontPos=strlen($codeFind);
-                                    $endPos=strpos($str,'元,');
-                                    $strAmount=substr($str,$frontPos,$endPos-$frontPos);
-                                    $strAmount=floatval($strAmount);
-
-                                    if(empty($strAmount))
-                                    {
-                                        return false;
-                                    }
-                                 return ['check_code'=>$code,'amount'=>$strAmount,'bank'=>$val];
-
-                                }else{
-                                    return false;
-                                }
-                            }
-                            break;
-                        }
-                        case 'guang_da': //光大银行
-                        {
-                            if(strpos($str,$val)>0){
-                                $codeFind='跨行汇款';
-                                if(strpos($str,$codeFind)>0){
-                                    $frontPos=strpos($str,$codeFind)+strlen($codeFind);
-                                    $endPos=strpos($str,'。');
-                                    $code=substr($str,$frontPos,$endPos-$frontPos);
-
-                                    // amount
-                                    $codeFind='转入';
-                                    $frontPos=strpos($str,$codeFind)+strlen($codeFind);
-                                    $endPos=strpos($str,'元，余额为');
-                                    $strAmount=substr($str,$frontPos,$endPos-$frontPos);
-                                    $strAmount=floatval($strAmount);
-
-                                    if(empty($strAmount))
-                                    {
-                                        return false;
-                                    }
-                                 return ['check_code'=>$code,'amount'=>$strAmount,'bank'=>$val];
-
-                                }else{
-                                    return false;
-                                }
-                            }
-                            break;
-                        }
-                        case 'xing_ye': //兴业
-                        {
-                            if(strpos($str,$val)>0){
-                                $codeFind='（';
-                                if(strpos($str,$codeFind)>0){
-                                    $frontPos=strpos($str,$codeFind)+strlen($codeFind);
-                                    $endPos=strpos($str,'）');
-                                    $code=substr($str,$frontPos,$endPos-$frontPos);
-
-                                    // amount
-                                    $codeFind='汇款汇入收入';
-                                    $frontPos=strpos($str,$codeFind)+strlen($codeFind);
-                                    $endPos=strpos($str,'元，余额');
-                                    $strAmount=substr($str,$frontPos,$endPos-$frontPos);
-                                   // dd($strAmount);
-                                    $strAmount=floatval($strAmount);
-
-                                    if(empty($strAmount))
-                                    {
-                                        return false;
-                                    }
-                                 return ['check_code'=>$code,'amount'=>$strAmount,'bank'=>$val];
-
-                                }else{
-                                    return false;
-                                }
-                            }
-                            break;
-                        }
-
-                }
-            }
-       }
-       return false;
-
-    }
 }

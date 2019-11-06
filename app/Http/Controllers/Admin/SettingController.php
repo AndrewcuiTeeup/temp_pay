@@ -203,6 +203,9 @@ class SettingController extends Controller
                 case '1':{$log->status='Success';break;}
             }
             $url='';
+            if(!empty($log->order_id)){
+                $url='<a href="javascript:void(0)" onclick="commonViewDialog(\'' .route('admin.order.detail',['id'=>$log->order_id]).'\',\'View\')">View</a>';
+            }
             $data[] = [
                 'id' => $log->id,
                 'message' => $log->message,

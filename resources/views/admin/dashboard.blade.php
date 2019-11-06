@@ -19,7 +19,7 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
         <div class="row total-number">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">当天金额</h4>
@@ -30,13 +30,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">总金额</h4>
                         <div class="text-right">
                             <h2 class="font-light display-6 mb-0"><i class="mdi mdi-poll text-pink mr-3"></i>CNY {{$balance_CNY}} </h2>
                             <span class="text-muted small">入金USD {{$balance_USD}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{$shop->name}}</h4>
+                        <div class="text-left" style="padding-left: 10px;">
+                            <h5 class="font-light  mb-0">Code: {{$shop->site_code}} </h5>
+                            <h5 class="font-light  mb-0">Secret Key: {{$shop->secret_key}} </h5>
+                            <span class="text-muted small">&nbsp;</span>
                         </div>
                     </div>
                 </div>
@@ -56,7 +68,7 @@
                                 <thead>
                                 <tr>
                                     <th>{{__('common.updated_time')}}</th>
-                                    <th>Ref ID</th>
+                                    <th>金桔订单ID</th>
                                     <th>付款人</th>
                                     <th>入金USD</th>
                                     <th>支付金额</th>
@@ -70,7 +82,7 @@
                                     <?php $viewUrl=route('admin.order.detail',$row->id);?>
                                     <tr>
                                         <td>{{$row->updated_at}}</td>
-                                        <td>{{$row->refId}}</td>
+                                        <td>{{$row->orderId}}</td>
                                         <td>{{$row->payee}}</td>
                                         <td>{{$row->amount_usd}}</td>
                                         <td>{{$row->payment_currency}} {{$row->final_amount}}</td>

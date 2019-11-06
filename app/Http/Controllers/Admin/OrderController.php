@@ -13,8 +13,6 @@ use App\Services\WithdrawService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class OrderController extends Controller
 {
@@ -74,6 +72,11 @@ class OrderController extends Controller
                                 $sqlData->where('refId', $searchVal);
                                 break;
                             }
+                            case 'orderId':
+                            {
+                                $sqlData->where('orderId', $searchVal);
+                                break;
+                            }
                         case 'name':
                             {
                                 $sqlData->where('payee', $searchVal);
@@ -90,12 +93,12 @@ class OrderController extends Controller
                 // from date
                 $fromDate = $searchJson['fromDate'];
                 if($fromDate!='') {
-                    $sqlData->whereDate('updated_at', '>=',$fromDate);
+                    $sqlData->whereDate('created_at', '>=',$fromDate);
                 }
                 // to date
                 $toDate = $searchJson['toDate'];
                 if($toDate!='') {
-                    $sqlData->whereDate('updated_at','<=' ,$toDate);
+                    $sqlData->whereDate('created_at','<=' ,$toDate);
                 }
 
                 // status
@@ -126,6 +129,7 @@ class OrderController extends Controller
             $data[] = [
                 'id' => $log->id,
                 'refID' => $log->refId,
+                'orderId' => $log->orderId,
                 'amount_usd' => $log->amount_usd,
                 'payee' => $log->payee,
                 'payment_currency' => $log->payment_currency,

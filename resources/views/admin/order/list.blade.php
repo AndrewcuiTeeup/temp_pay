@@ -45,7 +45,8 @@
                                     </div>
                                     <select id="select-filter_type" name="filter_type"  class="form-control">
                                         <option value="">All</option>
-                                        <option value="refID">{{__('common.order_id')}}</option>
+                                        <option value="refID">RefId</option>
+                                        <option value="orderId">金桔订单ID</option>
                                         <option value="name">{{__('common.name_person')}}</option>
                                         <option value="amount">支付金额</option>
                                     </select>
@@ -83,7 +84,7 @@
                                 <tr>
                                     <th>{{__('common.updated_time')}}</th>
                                     <th>{{__('common.status')}}</th>
-                                    <th>Ref ID</th>
+                                    <th>金桔订单ID</th>
                                     <th>付款人</th>
                                     <th>入金USD</th>
                                     <th>支付金额</th>
@@ -159,7 +160,7 @@
                 "columns": [
                   { "data": "updated_at" },
                   { "data": "status" },
-                    { "data": "refID" },
+                    { "data": "orderId" },
                     { "data": "payee" },
                     { "data": "amount_usd" },
                     { "data": "final_amount" },

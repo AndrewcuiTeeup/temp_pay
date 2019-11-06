@@ -6,6 +6,7 @@ use App\Services\AdminService;
 use App\Services\MerchantApplicationService;
 use App\Services\OrderService;
 use App\Services\RechargeService;
+use App\Services\SettingService;
 use App\Services\UserApplicationService;
 use App\Services\WithdrawService;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class DashboardController extends Controller
         $data['today_balance_CNY']=OrderService::successBalanceCNY($today);
         $data['balance_USD']=OrderService::successBalanceUSD();
         $data['balance_CNY']=OrderService::successBalanceCNY();
+        $data['shop']=SettingService::getShopById(1);
         return view('admin.dashboard')->with($data);
     }
 
