@@ -33,7 +33,7 @@ Route::get('/payment/order_detail/{id}', 'PaymentController@show')->name('paymen
 Route::get('/payment/order_expired/{id}', 'PaymentController@orderExpired')->name('payment.order.expired');
 Route::get('/payment/order_success/{id}', 'PaymentController@orderSuccess')->name('payment.order.success');
 Route::post('/payment/notify', 'PaymentController@notify')->name('payment.notify');
-Route::get('/test', 'TestController@index')->name('test');
+//Route::get('/test', 'TestController@index')->name('test');
 
 
 Route::prefix('admin')->group(function() {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>订单支付</title>
     <link rel="stylesheet" type="text/css" href="{{asset('pay_ui/css/index.css')}}" />
 </head>
 <body>

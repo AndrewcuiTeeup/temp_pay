@@ -28,6 +28,8 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('closeOrders')->everyMinute(); // close expired order
         $schedule->command('checkDeviceOnline')->everyMinute();
+        $schedule->command('paymentNotice 0 100')->everyMinute();
+        $schedule->command('paymentNotice 100 500')->everyMinute();
     }
 
     /**

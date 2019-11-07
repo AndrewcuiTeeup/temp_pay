@@ -17,6 +17,7 @@ class TestController extends Controller
     public function index()
     {
         //DeviceService::autoCheckOnline();
-        OrderService::closeOrder();
+       // OrderService::closeOrder();
+        OrderService::resendAllNotify(0,100);
     }
 }

@@ -193,7 +193,7 @@ class OrderService
             $maxResend=env('MAX_NOTIFY_NUM');
         }
         return Order::where('allow_resend','=',0)
-            ->where('status','=',2)
+            ->where('status','=',1)
             ->where('notify_resent_no','<',$maxResend)
             ->whereNotNull('notify_url')
             ->orderBy($orderField,$asc)

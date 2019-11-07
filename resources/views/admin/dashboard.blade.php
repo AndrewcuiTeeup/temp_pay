@@ -61,7 +61,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{__('dashboard.today_withdraw_record')}}</h4>
+                        <h4 class="card-title">今天交易记录</h4>
                         <div id="divControlMsg" class="alert alert-success" role="alert" style="display: none"></div>
                         <div class="table-responsive">
                             <table id="tableTodayResult" class="table nowrap" style="width:100%">
