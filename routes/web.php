@@ -16,9 +16,9 @@
 });*/
 
 //Auth::routes();
-Route::get('/', function () {
-    return redirect(route('admin.login'));
-})->name('home');
+/*Route::get('/admin', function () {
+   return redirect(route('admin.login'));
+})->name('home');*/
 
 Route::get('/home',  function () {
     return redirect(route('admin.dashboard'));
@@ -33,7 +33,7 @@ Route::get('/payment/order_detail/{id}', 'PaymentController@show')->name('paymen
 Route::get('/payment/order_expired/{id}', 'PaymentController@orderExpired')->name('payment.order.expired');
 Route::get('/payment/order_success/{id}', 'PaymentController@orderSuccess')->name('payment.order.success');
 Route::post('/payment/notify', 'PaymentController@notify')->name('payment.notify');
-Route::get('/test', 'PaymentController@test')->name('payment.test');
+Route::get('/test', 'TestController@index')->name('test');
 
 
 Route::prefix('admin')->group(function() {
@@ -63,6 +63,14 @@ Route::prefix('admin')->group(function() {
 
     Route::get('/setting/sms-log', 'Admin\SettingController@smslog')->name('admin.setting.sms-log');
     Route::post('/setting/sms-log/ajax', 'Admin\SettingController@sms_ajax_table')->name('admin.setting.sms-log-ajax');
+    Route::get('/setting/device', 'Admin\DeviceController@deviceList')->name('admin.setting.device-list');
+
+    // user
+    Route::get('/setting/admin/list', 'Admin\SettingController@userList')->name('admin.setting.admin.list');
+    Route::get('/setting/admin/edit/{id}', 'Admin\SettingController@userEditForm')->name('admin.setting.admin.editForm');;
+    Route::post('/setting/admin/add', 'Admin\SettingController@userAdd')->name('admin.setting.admin.add');
+    Route::post('/setting/admin/update', 'Admin\SettingController@userUpdate')->name('admin.setting.admin.update');
+    Route::post('/setting/admin/delete', 'Admin\SettingController@userDelete')->name('admin.setting.admin.delete');
 
 
 });

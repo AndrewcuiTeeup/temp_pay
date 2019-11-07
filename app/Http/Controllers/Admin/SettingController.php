@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Services\AdminUserService;
 use App\Services\BankSMSService;
 use App\Services\SettingService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SMSMessage;
 use Auth;
-
+use Hash;
 
 class SettingController extends Controller
 {
@@ -230,5 +231,87 @@ class SettingController extends Controller
         return response($json_data);
     }
 
+    public function userList()
+    {
+        $data['nav_title']= 'CMS账户管理';
+        $data['selected_menu']= 'bankMenu';
+        $data['data']=AdminUserService::listAll();
+        $data['currentUserId']=Auth::user()->id;
+        return view('admin.setting.admin_list')->with($data);
+    }
+
+    public function userAdd(Request $request)
+    {
+
+        // validate
+        $rule=[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins,email',
+            'password' => 'required|string|min:6|max:10|confirmed',
+            'type'=>'required',
+        ];
+        $validData=$request->validate($rule);
+        $data['name']=$validData['name'];
+        $data['email']=$validData['email'];
+        $data['password']=$validData['password'];
+        $data['type']=$validData['type'];
+        $rs=AdminUserService::addUser($data);
+        return response()->json(['data' => '', 'status' => 'success'], 200);
+    }
+
+    public function userEditForm($id)
+    {
+        $adminUserId=Auth::guard('admin')->user()->id;
+        $data['data']=AdminUserService::getById($id);
+        $data['showControlCode']=($adminUserId==$id)? true:false;
+        return view('admin.setting.user_edit_form')->with($data);
+    }
+
+    public function userUpdate(Request $request)
+    {
+
+        // validate
+        $rule=[
+            'name' => 'required|string|max:255',
+            'type'=>'required',
+            'id'=>'required',
+        ];
+
+        if(!empty($request['password']))
+        {
+            $rule['password'] = 'required|string|min:6|max:10|confirmed';
+        }
+
+        $validData=$request->validate($rule);
+        $data['name']=$validData['name'];
+        if(!empty($request['password'])) {
+            $data['password'] = $validData['password'];
+            $data['password']=Hash::make($data['password']);
+        }
+        $data['type']=$validData['type'];
+        $id=$validData['id'];
+        $adminUserId=Auth::guard('admin')->user()->id;
+
+        $email=null;
+        if($adminUserId==$id) {
+            $email=Auth::guard('admin')->user()->email;
+        }
+        $rs = AdminUserService::updateById($id, $data,$email);
+        return response()->json(['data' => '', 'status' => 'success'], 200);
+    }
+
+    public function userDelete(Request $request)
+    {
+
+        // validate
+        $rule=[
+            'id'=>'required',
+        ];
+        $validData=$request->validate($rule);
+
+        $id=$validData['id'];
+        $rs=AdminUserService::deleteById($id);
+        return response()->json(['data' => '', 'status' => 'success'], 200);
+    }
 }
 

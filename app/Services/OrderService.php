@@ -230,7 +230,7 @@ class OrderService
 
     static public function closeOrder()
     {
-        $sql="update orders set updated_at=NOW(),`status`=3 where date_sub(created_at,INTERVAL -15 minute )<=Now() AND `status`=1";
+        $sql="UPDATE orders SET updated_at=NOW(),`status`=3,`check_code`=CONCAT_WS('-','expired',`id`)  WHERE DATE_SUB(created_at,INTERVAL -15 MINUTE )<=NOW() AND `status`=0";
         return DB::update($sql);
     }
 

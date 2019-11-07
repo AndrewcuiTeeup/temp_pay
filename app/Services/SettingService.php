@@ -7,6 +7,7 @@ namespace App\Services;
 
 
 use App\Models\BankInfo;
+use App\Models\SettingOption;
 use App\Models\Shop;
 use App\Models\SMSBankTemplate;
 use DB;
@@ -79,6 +80,11 @@ class SettingService
     static public function getShopById($id)
     {
         return Shop::where('id',$id)->first();
+    }
+
+    static public function listSettingOption()
+    {
+        return SettingOption::get();
     }
 
 }

@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('closeOrders')->everyMinute(); // close expired order
+        $schedule->command('checkDeviceOnline')->everyMinute();
     }
 
     /**

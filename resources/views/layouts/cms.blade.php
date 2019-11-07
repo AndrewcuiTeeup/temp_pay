@@ -118,6 +118,8 @@
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{route('admin.setting.bank-list')}}"><i class="mdi mdi-credit-card"></i><span class="hide-menu">{{__('navigation.bank_setting')}}</span></a></li>
                             <li><a href="{{route('admin.setting.sms-log')}}"><i class="mdi mdi-cellphone-message"></i><span class="hide-menu">{{__('navigation.sms_log')}}</span></a></li>
+                            <li><a href="{{route('admin.setting.device-list')}}"><i class="mdi mdi-book-open-outline"></i><span class="hide-menu">{{__('navigation.device_setting')}}</span></a></li>
+                            <li><a href="{{route('admin.setting.admin.list')}}"><i class="mdi mdi-account-details"></i><span class="hide-menu">{{__('navigation.cms_users')}}</span></a></li>
                         </ul>
                     </li>
                 </ul>
