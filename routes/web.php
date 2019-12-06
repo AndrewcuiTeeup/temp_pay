@@ -16,9 +16,7 @@
 });*/
 
 //Auth::routes();
-/*Route::get('/admin', function () {
-   return redirect(route('admin.login'));
-})->name('home');*/
+
 
 Route::get('/home',  function () {
     return redirect(route('admin.dashboard'));
@@ -44,11 +42,11 @@ Route::prefix('admin')->group(function() {
         return back()->withInput();
     });
 
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::any('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
-    Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
+    Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('/order-list', 'Admin\OrderController@index')->name('admin.order.list');
     Route::post('/order/ajax', 'Admin\OrderController@ajax_log_table')->name('admin.order.ajax');
     Route::get('/order-detail/{id}', 'Admin\OrderController@detail')->name('admin.order.detail');
